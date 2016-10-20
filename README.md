@@ -1,2 +1,2 @@
 # Migration API
-####*A Spring Boot Service that uses FlyWayDB to migrate one or multiple databases to the latest version.*
+####*A Spring Boot Service based on FlyWayDB to migrate one or multiple databases to the latest version out-of-the-box without the need of any dependancies or configuration within your projects.*
