@@ -4,7 +4,9 @@
 package com.migration.flyway.service.impl;
 
 import org.flywaydb.core.Flyway;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.migration.flyway.bo.Datasource;
 import com.migration.flyway.service.MigrationService;
@@ -14,8 +16,11 @@ import com.migration.flyway.service.MigrationService;
  *
  * @author Mustafa Dagher
  */
-@Component
+@Service
 public class MigrationServiceImpl implements MigrationService {
+
+    @Autowired
+    private WebApplicationContext context;
 
     /*
      * (non-Javadoc)
@@ -23,8 +28,7 @@ public class MigrationServiceImpl implements MigrationService {
      */
     @Override
     public int performMigration(final Datasource datasource) {
-
-        final Flyway flyway = new Flyway();
+        final Flyway flyway = context.getBean("flyway", Flyway.class);
         flyway.setDataSource(datasource.getDbUrl(), datasource.getDbUserName(), datasource.getDbPassword());
 
         if (datasource.getSchemaLocation() != null && !datasource.getSchemaLocation().isEmpty()) {
